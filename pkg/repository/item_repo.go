@@ -239,4 +239,69 @@ func (item_repo *ItemRepo) UpdateData(newData model.ItemModel, id string) (model
 	return newData, nil
 }
 
-// create function to add
+// create function to delete data in database
+func (item_repo *ItemRepo) DeleteData(id string) (model.ItemModel, error) {
+	// create method to delete data from database
+
+	// create variable to hold data as feedback
+	var getData model.ItemModel
+
+	// create query to get certain data with id as feedback
+	query := `SELECT * FROM "itemtable" WHERE "id"=$1`
+
+	// start query prigress
+	allData, err := item_repo.Config.DB.Query(query, id)
+
+	// check error
+	if err != nil {
+		// error happend
+		errs := errors.New("error happen when getting data with certain id in delete data")
+		return model.ItemModel{}, errs
+	}
+
+	for allData.Next() {
+		// create variable to hold data
+		var getIdCheck string
+		var getItemNameCheck string
+		var getItemCategoryCheck string
+		var getItemPriceCheck float64
+		var getItemQuantityCheck int32
+
+		// assign value to variable
+		err := allData.Scan(&getIdCheck, &getItemNameCheck, &getItemCategoryCheck, &getItemPriceCheck, &getItemQuantityCheck)
+
+		if err != nil {
+			errs := errors.New("error when holding data in update method")
+			return model.ItemModel{}, errs
+		}
+
+		// check if id correct
+		if getIdCheck == id {
+			// assign value to getData
+			getData.SetId(getIdCheck)
+			getData.SetItemName(getItemNameCheck)
+			getData.SetItemCategory(getItemCategoryCheck)
+			getData.SetItemPrice(getItemPriceCheck)
+			getData.SetItemQuantity(getItemQuantityCheck)
+
+			// exit iterate
+			break
+		}
+	}
+
+	// create dlete query
+	deleteQuery := `DELETE FROM "itemtable" WHERE "id"=$1`
+
+	// start delete query
+	_, err = item_repo.Config.DB.Query(deleteQuery, id)
+
+	// check err
+	if err != nil {
+		// error happen
+		errs := errors.New("error happen when running delete query in delete method")
+		return model.ItemModel{}, errs
+	}
+
+	// return this if success
+	return getData, nil
+}
