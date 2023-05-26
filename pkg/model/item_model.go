@@ -4,7 +4,7 @@ package model
 type ItemModel struct {
 	Id           string  `json:"id"`
 	ItemName     string  `json:"item_name"`
-	ItemCatagory string  `json:"item_category"`
+	ItemCategory string  `json:"item_category"`
 	ItemPrice    float64 `json:"item_price"`
 	ItemQuantity int32   `json:"item_quantity"`
 }
@@ -29,11 +29,11 @@ func (item *ItemModel) SetItemName(itemName string) {
 
 // create get methid for item category
 func (item *ItemModel) GetItemCategory() string {
-	return item.ItemName
+	return item.ItemCategory
 }
 
-func (item *ItemModel) SetItemCategory(itemName string) {
-	item.ItemName = itemName
+func (item *ItemModel) SetItemCategory(itemCategory string) {
+	item.ItemCategory = itemCategory
 }
 
 // create get set method for item price

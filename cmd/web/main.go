@@ -60,13 +60,25 @@ func main() {
 	userHandler := handler.IntiUserHandler(userService)
 	userHandler.Config = &appConfig
 
+	// create item repo
+	itemRepo := repository.InitItemRepo()
+	itemRepo.Config = &appConfig
+
+	// create item service
+	itemService := service.InitItemService(itemRepo)
+	itemService.Config = &appConfig
+
+	// create item handler
+	itemHandler := handler.InitItemHandler(itemService)
+	itemHandler.Config = &appConfig
+
 	// init middlware
 	InitMiddleware(userService)
 
 	// create route
 	srv := &http.Server{
 		Addr:    ":2020",
-		Handler: route(userHandler),
+		Handler: route(userHandler, itemHandler),
 	}
 
 	// start routing

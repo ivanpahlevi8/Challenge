@@ -7,7 +7,7 @@ import (
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/handler"
 )
 
-func route(handler *handler.UserHandler) http.Handler {
+func route(handler *handler.UserHandler, itemHandler *handler.ItemHandler) http.Handler {
 	// create mux
 	mux := chi.NewRouter()
 
@@ -19,6 +19,11 @@ func route(handler *handler.UserHandler) http.Handler {
 	mux.Put("/update-user-id", handler.UpdateDataById)
 
 	mux.Post("/login", LoginMiddleware(http.HandlerFunc(handler.LoginHandler)))
+
+	// create route for item
+	mux.Get("/get-item-id", itemHandler.GetDataById)
+
+	mux.Post("/add-item", itemHandler.AddItem)
 
 	return mux
 }

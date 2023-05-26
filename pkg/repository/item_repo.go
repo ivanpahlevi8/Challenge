@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/google/uuid"
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/configs"
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/model"
 )
@@ -32,6 +33,10 @@ func (item_repo *ItemRepo) AddData(newData model.ItemModel) (model.ItemModel, er
 	itemCategory := newData.GetItemCategory()
 	itemPrice := newData.GetItemPrice()
 	itemQuantity := newData.GetItemQuantity()
+
+	// casting new id
+	newId := uuid.New()
+	itemId = newId.String()
 
 	// create query for insert data
 	query := `INSERT INTO "itemtable"("id", "item_name", "item_category", "item_price", "item_quantity") VALUES($1, $2, $3, $4, $5)`

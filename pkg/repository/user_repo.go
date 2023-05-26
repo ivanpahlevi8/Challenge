@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/google/uuid"
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/authentication"
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/configs"
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/model"
@@ -52,6 +53,12 @@ func (item_repo *UserRepo) AddDataModel(modelItem model.UserAccount) (model.User
 
 	// set new pass
 	getDataPassword = string(newPass)
+
+	// casting id
+	newId := uuid.New()
+
+	// set id
+	getDataId = newId.String()
 
 	// create query for inserting data to database
 	query := `INSERT INTO "usertable"("id", "username", "password", "first_name", "last_name", "age", "list_id") values($1, $2, $3, $4, $5, $6, $7)`
