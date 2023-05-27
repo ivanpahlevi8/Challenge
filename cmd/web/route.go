@@ -20,7 +20,7 @@ func route(handler *handler.UserHandler, itemHandler *handler.ItemHandler, userA
 
 		w.Write([]byte("Welcome To Home Page"))
 
-		appConfig.Session.Put(r.Context(), "username", "")
+		appConfig.Session.Put(r.Context(), "username", "not logged")
 	})
 
 	// create router to get id
@@ -38,15 +38,15 @@ func route(handler *handler.UserHandler, itemHandler *handler.ItemHandler, userA
 	mux.Post("/add-item", itemHandler.AddItem)
 
 	// create route for user activiy
-	mux.Put("/user-get-item", userActivityHandler.UserAddItem)
+	mux.Put("/user-get-item", ActiveUserMiddleware(http.HandlerFunc(userActivityHandler.UserAddItem)))
 
-	mux.Put("/user-delete-item", userActivityHandler.UserRemoveItem)
+	mux.Put("/user-delete-item", ActiveUserMiddleware(http.HandlerFunc(userActivityHandler.UserRemoveItem)))
 
-	mux.Get("/user-get-all-item", userActivityHandler.UserViewAllItemInChart)
+	mux.Get("/user-get-all-item", ActiveUserMiddleware(http.HandlerFunc(userActivityHandler.UserViewAllItemInChart)))
 
-	mux.Get("/user-checkout", userActivityHandler.CheckoutAllItem)
+	mux.Get("/user-checkout", ActiveUserMiddleware(http.HandlerFunc(userActivityHandler.CheckoutAllItem)))
 
-	mux.Get("/user-category", userActivityHandler.GetAllItemsBasedOnCategory)
+	mux.Get("/user-category", ActiveUserMiddleware(http.HandlerFunc(userActivityHandler.GetAllItemsBasedOnCategory)))
 
 	return mux
 }

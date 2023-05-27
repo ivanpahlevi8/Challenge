@@ -95,3 +95,20 @@ func LoginMiddleware(next http.Handler) http.HandlerFunc {
 func SessionMiddleware(next http.Handler) http.Handler {
 	return session.LoadAndSave(next)
 }
+
+// create middleware for check user loggin or not
+func ActiveUserMiddleware(next http.Handler) http.HandlerFunc {
+	return http.HandlerFunc(
+		func(w http.ResponseWriter, r *http.Request) {
+			// get value username from session
+			getUsernameSession := MyMiddleware.Config.Session.Get(r.Context(), "username")
+
+			// check username
+			if getUsernameSession == "not logged" {
+				// if not logged yet
+				w.Write([]byte("Please loggin first"))
+			} else {
+				next.ServeHTTP(w, r)
+			}
+		})
+}
