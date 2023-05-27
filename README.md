@@ -45,8 +45,22 @@ CREATE TABLE usertable (
 	age int,
 	list_id varchar(255)
 ); <br/>
-![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/457afb11-2db8-43d3-9d11-dac81a2968ca)
-
+[image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/457afb11-2db8-43d3-9d11-dac81a2968ca) <br/><br/>
+- Item Table
+CREATE TABLE itemtable (
+	id varchar(255),
+	item_name varchar(255),
+	item_category varchar(255),
+	item_price float(8),
+	item_quantity INT
+); <br/>
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/fcf44c14-814a-4271-a262-938bbf783af7) <br/><br/>
+- Basket Table
+CREATE TABLE shoptable (
+	id varchar(255),
+	all_items text[]
+);<br/>
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/e48cf46b-325a-4a48-949c-53d5f3a0c7e3) <br/><br/>
 
 #### User Login Features
 login features in this application, can be used for customer ot user to create their account in database. 
