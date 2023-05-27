@@ -58,6 +58,8 @@ func (user_activity *UserActivityHandler) UserAddItem(w http.ResponseWriter, r *
 	// create slic
 	var allItems []string
 
+	fmt.Println("user list id : ", user.GetListId())
+
 	// get slice from user
 	shopModel, err := user_activity.ShopService.GetData(user.GetListId())
 
@@ -79,9 +81,14 @@ func (user_activity *UserActivityHandler) UserAddItem(w http.ResponseWriter, r *
 	item.SetItemQuantity(item.GetItemQuantity() - 1)
 
 	// updating item
-	user_activity.ItemService.UpdateDataById(item, item.GetId())
+	_, err = user_activity.ItemService.UpdateDataById(item, item.GetId())
+	if err != nil {
+		fmt.Println("err in update item : ", err)
+	}
 
 	// updating shop model
-	user_activity.ShopService.UpdateData(shopModel, shopModel.GetId())
-
+	_, err = user_activity.ShopService.UpdateData(shopModel, shopModel.GetId())
+	if err != nil {
+		fmt.Println("err in update shop : ", err)
+	}
 }

@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/google/uuid"
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/configs"
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/model"
 	"github.com/lib/pq"
@@ -29,12 +28,8 @@ func InitShopRepo() *ShopRepo {
 // create function to add shop data to database
 func (shop_repo *ShopRepo) AddShopeItem(newShop model.ShopModel) (model.ShopModel, error) {
 	// get variable from data
-	getId := ""
+	getId := newShop.GetId()
 	getAllItem := newShop.GetAllItems()
-
-	// casting new id
-	newId := uuid.New()
-	getId = newId.String()
 
 	// create query for insert data
 	query := `INSERT INTO "shoptable"("id", "all_items") VALUES($1, $2)`
@@ -84,10 +79,11 @@ func (shop_repo *ShopRepo) GetShop(id string) (model.ShopModel, error) {
 		var getAllItems []string
 
 		// assign value to variable
-		err := dataCollect.Scan(&getId, &getAllItems)
+		err := dataCollect.Scan(&getId, (*pq.StringArray)(&getAllItems))
 
 		// check error
 		if err != nil {
+			fmt.Println("err in shop get : ", err.Error())
 			// create error message
 			errs := errors.New("erorr happen when assign value from data query")
 			// reutrn err
@@ -139,7 +135,7 @@ func (shop_repo *ShopRepo) UpdateShopData(newData model.ShopModel, id string) (m
 		var getAllItemsCheck []string
 
 		// assign value to variable
-		err := allData.Scan(&getIdCheck, &getAllItemsCheck)
+		err := allData.Scan(&getIdCheck, (*pq.StringArray)(&getAllItemsCheck))
 
 		if err != nil {
 			errs := errors.New("error when holding data in update method")
@@ -153,6 +149,8 @@ func (shop_repo *ShopRepo) UpdateShopData(newData model.ShopModel, id string) (m
 		} else {
 			isDataAvail = false
 		}
+		fmt.Println("get id check shop : ", getIdCheck)
+		fmt.Println("get id real : ", id)
 	}
 
 	// check if data is not null
@@ -162,7 +160,7 @@ func (shop_repo *ShopRepo) UpdateShopData(newData model.ShopModel, id string) (m
 		updateQuery := `UPDATE "shoptable" SET "id" = $1, "all_items" = $2 WHERE "id" = $3`
 
 		// exec query
-		_, err := shop_repo.Config.DB.Query(updateQuery, getId, getAllItems, getId)
+		_, err := shop_repo.Config.DB.Query(updateQuery, getId, pq.Array(getAllItems), getId)
 
 		if err != nil {
 			// error happen

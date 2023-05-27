@@ -25,6 +25,8 @@ func InitMiddleware(service *service.UserService, config *configs.Config) {
 	MyMiddleware = &MiddlewareObj{}
 
 	MyMiddleware.MiddService = service
+
+	MyMiddleware.Config = config
 }
 
 func ValidateJWT(next http.Handler) http.Handler {
@@ -48,10 +50,6 @@ func LoginMiddleware(next http.Handler) http.HandlerFunc {
 			// get username and password
 			getPasswordInput := loginModel.GetPassword()
 			getUsernameInput := loginModel.GetUsername()
-
-			// put username in session
-			MyMiddleware.Config.Session.Remove(r.Context(), "username")
-			MyMiddleware.Config.Session.Put(r.Context(), "username", getUsernameInput)
 
 			// get certain user by username
 			getUser, err := MyMiddleware.MiddService.GetUserByUsername(getUsernameInput)
@@ -84,9 +82,16 @@ func LoginMiddleware(next http.Handler) http.HandlerFunc {
 			fmt.Println("Status : ", getUsername)
 
 			if getUsername {
+				// put username in session
+				MyMiddleware.Config.Session.Remove(r.Context(), "username")
+				MyMiddleware.Config.Session.Put(r.Context(), "username", getUsernameInput)
 				next.ServeHTTP(w, r)
 			} else {
 				w.Write([]byte("Wrong Password"))
 			}
 		})
+}
+
+func SessionMiddleware(next http.Handler) http.Handler {
+	return session.LoadAndSave(next)
 }

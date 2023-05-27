@@ -181,7 +181,7 @@ func (item_repo *ItemRepo) UpdateData(newData model.ItemModel, id string) (model
 
 	// create query to get data from database with certain id
 	// all data is used to check if data available or not in database
-	query := `SELECT * FROM "usertable" where "id"=$1`
+	query := `SELECT * FROM "itemtable" where "id"=$1`
 	allData, err := item_repo.Config.DB.Query(query, getId)
 
 	// check error

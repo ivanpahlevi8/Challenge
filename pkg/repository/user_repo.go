@@ -39,6 +39,8 @@ func (item_repo *UserRepo) AddDataModel(modelItem model.UserAccount) (model.User
 	getDataAge := modelItem.GetAge()
 	getDataListId := modelItem.GetListId()
 
+	fmt.Println("in user repo, list id : ", getDataListId)
+
 	// casting password
 	newPass, err := authentication.GenerateJWTToken(getDataPassword, getDataUsername)
 
@@ -67,6 +69,8 @@ func (item_repo *UserRepo) AddDataModel(modelItem model.UserAccount) (model.User
 
 	// execute query with it's values
 	_, err = item_repo.Config.DB.Exec(query, getDataId, getDataUsername, getDataPassword, getDataFirstName, getDataLastName, getDataAge, getDataListId)
+
+	fmt.Println("in user repo, list id after query : ", getDataListId)
 
 	// check error
 	if err != nil {

@@ -11,8 +11,15 @@ func route(handler *handler.UserHandler, itemHandler *handler.ItemHandler, userA
 	// create mux
 	mux := chi.NewRouter()
 
+	// middleware
+	mux.Use(SessionMiddleware)
+
 	// index
 	mux.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+
+		w.Write([]byte("Welcome To Home Page"))
+
 		appConfig.Session.Put(r.Context(), "username", "")
 	})
 
@@ -31,7 +38,7 @@ func route(handler *handler.UserHandler, itemHandler *handler.ItemHandler, userA
 	mux.Post("/add-item", itemHandler.AddItem)
 
 	// create route for user activiy
-	mux.Get("/user-get-item", userActivityHandler.UserAddItem)
+	mux.Put("/user-get-item", userActivityHandler.UserAddItem)
 
 	return mux
 }

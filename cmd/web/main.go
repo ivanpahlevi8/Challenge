@@ -28,7 +28,10 @@ func main() {
 	session.Lifetime = 24 * time.Hour
 	session.Cookie.Persist = true
 	session.Cookie.SameSite = http.SameSiteLaxMode
-	session.Cookie.Secure = appConfig.InProduction
+	session.Cookie.Secure = false
+
+	// assign session
+	appConfig.Session = session
 
 	// init db
 	//inisialisasi data
