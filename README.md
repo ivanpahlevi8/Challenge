@@ -99,6 +99,7 @@ If password is wrong, it will show message like this picture :
 <br/>
 As we can see, the password was casting in database, so in order to compare user input and password in database, it must use JWT to compare
 user input and password as token in database.
+<br/>
 
 ### User Add Product Features
 This feature in this application can be used for user to add item in store to their account basket. To access this feature, user must
@@ -107,16 +108,30 @@ url below, <br/>
 ``` sql
 http://localhost:2020/user-get-item?item_id=67df7eca-31cf-4be0-8899-366402650ceb
 ```
-those url are used with url parameter, item_id. This item id is refer to item table in database. in url above, user want to add item with
-id 67df7eca-31cf-4be0-8899-366402650ceb or _kertas A4_ to their bucket. In API postman, if we got to url, it will give feedback like
+those url is used with url parameter, item_id. This item id is refer to item table in database. In url above, user want to add item with
+id 67df7eca-31cf-4be0-8899-366402650ceb or _kertas A4_ to their basket. In API postman, if we got to url, it will give feedback like
 this picture, <br/>
 ![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/ff682880-2b38-4134-b844-895c9191964f)
 <br/>
-if user are not login yet, API will send message like this picture, <br/>
+if user is not login yet, API will send message like this picture, <br/>
 ![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/4db36f8b-0ba0-4904-8550-8aac4527138d)
 <br/>
 if url success, we can see in shop database, that item _kertas A4_ already added to user basket, <br/>
 ![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/62332f5b-b575-48bb-b867-e7f037dce5d8)
 </br>
 
-### User Delete Product Features
+#### User Delete Product Features
+This feature is oposite with previous feature, where in this feature user can delete item in their account basket. To access this feature, same as previous feature, user must login first with their account in database. If user already login, user can accessed this feature thorugh this link, <br/>
+``` sql
+http://localhost:2020/user-delete-item?item_id=67df7eca-31cf-4be0-8899-366402650ceb
+```
+Same as previous feature, url is used with url parameter called item_id. This item id is refer to item table in database. In url above, 
+user want to delete item with id 67df7eca-31cf-4be0-8899-366402650ceb or _kertas A4_ In their basket. if we test url in postman we will get feedback like this picture, <br/>
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/8f823f5d-a895-4a51-86a2-02b7c7d63514)
+if user is not login yet, API will send message like this picture, <br/>
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/25e4a308-1182-41c6-b147-d3e67d3f9abc)
+if url success, we can see in shop database, item _kertas A4_ already remove from user basket, <br/>
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/386ec17a-e638-4abe-9a37-94902b8e32a3)
+<br/>
+
+#### User See List Product In Basket
