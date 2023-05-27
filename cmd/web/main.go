@@ -63,6 +63,7 @@ func main() {
 	// create user service
 	userService := service.InitUserService(userRepo)
 	userService.Config = &appConfig
+	userService.ItemsRepo = shopRepo
 
 	// create user handler
 	userHandler := handler.IntiUserHandler(userService)

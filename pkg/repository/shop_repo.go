@@ -7,6 +7,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/configs"
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/model"
+	"github.com/lib/pq"
 )
 
 // create variale for item repo
@@ -39,10 +40,11 @@ func (shop_repo *ShopRepo) AddShopeItem(newShop model.ShopModel) (model.ShopMode
 	query := `INSERT INTO "shoptable"("id", "all_items") VALUES($1, $2)`
 
 	// start query
-	_, err := shop_repo.Config.DB.Exec(query, getId, getAllItem)
+	_, err := shop_repo.Config.DB.Exec(query, getId, pq.Array(getAllItem))
 
 	// check error
 	if err != nil {
+		fmt.Println("error in shop repo : ", err.Error())
 		// if error happend
 		errors := errors.New("error when inserting item to database")
 		return model.ShopModel{}, errors

@@ -2,7 +2,9 @@ package service
 
 import (
 	"errors"
+	"log"
 
+	"github.com/google/uuid"
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/configs"
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/model"
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/repository"
@@ -13,8 +15,9 @@ var MyUserService *UserService
 
 // crete struct object for service user
 type UserService struct {
-	UserRepo *repository.UserRepo
-	Config   *configs.Config
+	UserRepo  *repository.UserRepo
+	ItemsRepo *repository.ShopRepo
+	Config    *configs.Config
 }
 
 // init user service
@@ -33,12 +36,31 @@ method for user service start here
 
 // create method to add user data
 func (user_service *UserService) AddUser(userAdd model.UserAccount) (model.UserAccount, error) {
+	// create shop data first
+	var itemData model.ShopModel
+
+	// set item data
+	itemData.Id = uuid.New().String()
+
+	// set item slice
+	itemData.AllItems = []string{}
+
+	// change user id based on item data
+	userAdd.SetListId(itemData.GetId())
+
 	// add data
 	getData, err := user_service.UserRepo.AddDataModel(userAdd)
 
 	// check error
 	if err != nil {
 		return model.UserAccount{}, err
+	}
+
+	// add shop
+	_, err = user_service.ItemsRepo.AddShopeItem(itemData)
+
+	if err != nil {
+		log.Println(err.Error())
 	}
 
 	// return data if success
