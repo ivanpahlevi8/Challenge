@@ -45,7 +45,7 @@ CREATE TABLE usertable (
 	age int,
 	list_id varchar(255)
 ); <br/>
-[image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/457afb11-2db8-43d3-9d11-dac81a2968ca) <br/><br/>
+[user table](https://github.com/ivanpahlevi8/Challenge/assets/83549388/457afb11-2db8-43d3-9d11-dac81a2968ca) <br/><br/>
 - Item Table <br/>
 CREATE TABLE itemtable (
 	id varchar(255),
@@ -54,13 +54,13 @@ CREATE TABLE itemtable (
 	item_price float(8),
 	item_quantity INT
 ); <br/>
-![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/fcf44c14-814a-4271-a262-938bbf783af7) <br/><br/>
+![item table](https://github.com/ivanpahlevi8/Challenge/assets/83549388/fcf44c14-814a-4271-a262-938bbf783af7) <br/><br/>
 - Basket Table <br/>
 CREATE TABLE shoptable (
 	id varchar(255),
 	all_items text[]
 );<br/>
-![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/e48cf46b-325a-4a48-949c-53d5f3a0c7e3) <br/><br/>
+![shop table](https://github.com/ivanpahlevi8/Challenge/assets/83549388/e48cf46b-325a-4a48-949c-53d5f3a0c7e3) <br/><br/>
 
 The feature that involve with persistance database can be seen in the next section. </br>
 
