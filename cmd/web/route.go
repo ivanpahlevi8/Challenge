@@ -46,5 +46,7 @@ func route(handler *handler.UserHandler, itemHandler *handler.ItemHandler, userA
 
 	mux.Get("/user-checkout", userActivityHandler.CheckoutAllItem)
 
+	mux.Get("/user-category", userActivityHandler.GetAllItemsBasedOnCategory)
+
 	return mux
 }

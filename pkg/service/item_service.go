@@ -40,6 +40,25 @@ func (item_service *ItemService) AddData(newData model.ItemModel) (model.ItemMod
 	return getData, nil
 }
 
+func (item_service *ItemService) GetAllData() ([]model.ItemModel, error) {
+	// create var
+	var getAllItem []model.ItemModel
+	var err error
+
+	// get all data from repository
+	getAllItem, err = item_service.ItemRepo.GetAllData()
+
+	// check err
+	if err != nil {
+		// error happend
+		errs := errors.New("error when getting all data from repo")
+		return getAllItem, errs
+	}
+
+	// if success
+	return getAllItem, nil
+}
+
 func (item_service *ItemService) GetDataById(id string) (model.ItemModel, error) {
 	// get user
 	getItem, err := item_service.ItemRepo.GetData(id)

@@ -296,3 +296,46 @@ func (user_activity *UserActivityHandler) CheckoutAllItem(w http.ResponseWriter,
 		json.NewEncoder(w).Encode(checkoutItems)
 	}
 }
+
+// create function for user to see all items based on category
+func (user_activity *UserActivityHandler) GetAllItemsBasedOnCategory(w http.ResponseWriter, r *http.Request) {
+	// set header
+	w.Header().Set("Content-Type", "application/json")
+
+	// create slice to hold data of object
+	var allData []model.ItemModel = []model.ItemModel{}
+
+	// create params and get item based on item id
+	params := r.URL.Query()
+	item_category := params.Get("item_category")
+
+	// get all data from database
+	getAllData, err := user_activity.ItemService.GetAllData()
+
+	// check err
+	if err != nil {
+		w.Write([]byte("error when get all item based on category"))
+		return
+	}
+
+	// iterate through all data
+	for _, data := range getAllData {
+		if data.GetItemCategory() == item_category {
+			allData = append(allData, data)
+		}
+	}
+
+	// check len
+	if len(allData) < 1 {
+		w.Write([]byte("no item with those category"))
+		return
+	}
+
+	// create category object
+	returnModel := model.CategoryModel{
+		Category: item_category,
+		AllItems: allData,
+	}
+
+	json.NewEncoder(w).Encode(returnModel)
+}
