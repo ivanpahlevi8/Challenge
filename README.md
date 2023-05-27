@@ -93,3 +93,8 @@ message like picture below :
 <br/>
 If password is wrong, it will show message like this picture :
 ![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/2003e11c-2a2d-4d41-ba2c-e9eb48640eac)
+<br/>
+As we can see, the password was casting in database, so in order to compare user input and password in database, it must use JWT to compare
+user input and password as token in database.
+
+### 
