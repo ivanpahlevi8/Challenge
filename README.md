@@ -69,10 +69,27 @@ Register features in this application, can be used for customer ot user to creat
 ``` sql
 http://localhost:2020/add-user
 ```
-API documentation can be seen in this picture <br/>
-![postman](https://github.com/ivanpahlevi8/Challenge/assets/83549388/ea439e97-894f-4ce2-9766-c6b6cc7dcfb2)
+API documentation can be seen in this picture, <br/>
+![postman_register](https://github.com/ivanpahlevi8/Challenge/assets/83549388/ea439e97-894f-4ce2-9766-c6b6cc7dcfb2)
 <br/>
 And, when we check the database, we can see that data in table are added with new data, <br/>
-![postgres user table](https://github.com/ivanpahlevi8/Challenge/assets/83549388/3eb67421-0450-4521-8132-83d82dc13a8e)
+![postgres user table register](https://github.com/ivanpahlevi8/Challenge/assets/83549388/3eb67421-0450-4521-8132-83d82dc13a8e)
+<br/>
+In picture above, we can see that the password already casting into other form. This is one of features in application to make user
+user credential are safe and cannot be seen by other user or administrator. Password was casted using JWT library or Javascript Web Token.
 
 #### User Login Features
+Login features in this application, can be user for customer to login with their account which their account already registered before.
+Login features is used to access some restricted url for user to manipulate data in their basket. Login features use Post request in API.
+This feature can be accessed through this url, <br/>
+``` sql
+http://localhost:2020/login
+```
+API documentation using postman can be seen in this picture, <br/>
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/53f619be-a895-4f2e-b8a3-15aaefd99767)
+Based on those image, if the user already registered and password is correct then user will get access. If username wrong, it will show
+message like picture below :
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/c8576997-9b63-44f2-9225-fd0e12ff1be2)
+<br/>
+If password is wrong, it will show message like this picture :
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/2003e11c-2a2d-4d41-ba2c-e9eb48640eac)
