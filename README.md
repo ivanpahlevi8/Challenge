@@ -77,9 +77,12 @@ And, when we check the database, we can see that data in table are added with ne
 <br/>
 In picture above, we can see that the password already casting into other form. This is one of features in application to make user
 user credential are safe and cannot be seen by other user or administrator. Password was casted using JWT library or Javascript Web Token.
+<br/>
+When creating user, Application automatically create basket object. It can be seen in user database, as list_id column. So when user
+registered their account, it automatically create a basket object for them to add and remove item in their basket.
 
 #### User Login Features
-Login features in this application, can be user for customer to login with their account which their account already registered before.
+Login features in this application, can be used for customer to login with their account which their account already registered before.
 Login features is used to access some restricted url for user to manipulate data in their basket. Login features use Post request in API.
 This feature can be accessed through this url, <br/>
 ``` sql
@@ -97,4 +100,23 @@ If password is wrong, it will show message like this picture :
 As we can see, the password was casting in database, so in order to compare user input and password in database, it must use JWT to compare
 user input and password as token in database.
 
-### 
+### User Add Product Features
+This feature in this application can be used for user to add item in store to their account basket. To access this feature, user must
+login first with their account in database. If user already login, user can use this feature. To access this feature, user can use
+url below, <br/>
+``` sql
+http://localhost:2020/user-get-item?item_id=67df7eca-31cf-4be0-8899-366402650ceb
+```
+those url are used with url parameter, item_id. This item id is refer to item table in database. in url above, user want to add item with
+id 67df7eca-31cf-4be0-8899-366402650ceb or _kertas A4_ to their bucket. In API postman, if we got to url, it will give feedback like
+this picture, <br/>
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/ff682880-2b38-4134-b844-895c9191964f)
+<br/>
+if user are not login yet, API will send message like this picture, <br/>
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/4db36f8b-0ba0-4904-8550-8aac4527138d)
+<br/>
+if url success, we can see in shop database, that item _kertas A4_ already added to user basket, <br/>
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/62332f5b-b575-48bb-b867-e7f037dce5d8)
+</br>
+
+### User Delete Product Features
