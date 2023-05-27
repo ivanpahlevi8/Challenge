@@ -135,3 +135,21 @@ if url success, we can see in shop database, item _kertas A4_ already remove fro
 <br/>
 
 #### User See List Product In Basket
+This feature is used for user to see all item in their basket. Same as previous feature, this feature also need for user to be logged in. User can access this feature, if already logged in, throug this link, <br/>
+``` sql
+http://localhost:2020/user-get-all-item
+```
+This url does not need url parameter because we want to see all items. For demonstration, we will login with user with username ivanindirsyah07 because this account alread has item in it basket. User, <br/>
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/cba5a240-1cac-439d-acb5-45016472a7af)
+<br/>
+If user already logged in, API will give feedback as picture below, 
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/c9b3b7c5-99c2-4f91-bcfe-d0622ea9cf8e)
+<br/>
+Same as data shop in database, <br/>
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/98e6ecdf-50ff-4fb3-b109-229baa9aaeac)
+<br/>
+If user was not logged in yet, API will give feedback as picture below, <br/>
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/495ae7df-4ed9-485d-bc41-01d4d5ec9d39)
+<br/>
+
+#### User See List Product Based On Category In Store
