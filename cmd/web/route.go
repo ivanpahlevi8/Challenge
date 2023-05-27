@@ -40,5 +40,7 @@ func route(handler *handler.UserHandler, itemHandler *handler.ItemHandler, userA
 	// create route for user activiy
 	mux.Put("/user-get-item", userActivityHandler.UserAddItem)
 
+	mux.Put("/user-delete-item", userActivityHandler.UserRemoveItem)
+
 	return mux
 }

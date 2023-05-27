@@ -9,6 +9,10 @@ import (
 	"github.com/lib/pq"
 )
 
+/**
+link reference for casting postgres array to go array => https://stackoverflow.com/questions/47479973/golang-postgresql-array
+*/
+
 // create variale for item repo
 var MyShop *ShopRepo
 
