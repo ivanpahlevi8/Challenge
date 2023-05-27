@@ -69,7 +69,6 @@ Register features in this application, can be used for customer ot user to creat
 ``` sql
 http://localhost:2020/add-user
 ```
-<br/>
 API documentation can be seen in this picture <br/>
 ![postman](https://github.com/ivanpahlevi8/Challenge/assets/83549388/ea439e97-894f-4ce2-9766-c6b6cc7dcfb2)
 <br/>
