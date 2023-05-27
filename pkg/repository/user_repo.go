@@ -60,6 +60,8 @@ func (item_repo *UserRepo) AddDataModel(modelItem model.UserAccount) (model.User
 	// set id
 	getDataId = newId.String()
 
+	// create shop model for user
+
 	// create query for inserting data to database
 	query := `INSERT INTO "usertable"("id", "username", "password", "first_name", "last_name", "age", "list_id") values($1, $2, $3, $4, $5, $6, $7)`
 

@@ -48,6 +48,14 @@ func main() {
 
 	appConfig.DB = result
 
+	// create shop repo
+	shopRepo := repository.InitShopRepo()
+	shopRepo.Config = &appConfig
+
+	// create shop service
+	shopService := service.InitShopService(shopRepo)
+	shopService.Config = &appConfig
+
 	// create user repo
 	userRepo := repository.InitUserRepo()
 	userRepo.Config = &appConfig
