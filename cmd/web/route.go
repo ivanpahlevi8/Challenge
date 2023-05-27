@@ -42,5 +42,7 @@ func route(handler *handler.UserHandler, itemHandler *handler.ItemHandler, userA
 
 	mux.Put("/user-delete-item", userActivityHandler.UserRemoveItem)
 
+	mux.Get("/user-get-all-item", userActivityHandler.UserViewAllItemInChart)
+
 	return mux
 }

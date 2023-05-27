@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -176,4 +177,47 @@ func (user_activity *UserActivityHandler) UserRemoveItem(w http.ResponseWriter, 
 
 	// give feedback to user
 	w.Write([]byte("Success deleting data in chart \n"))
+}
+
+// create function for user to view all items in chart
+func (user_activity *UserActivityHandler) UserViewAllItemInChart(w http.ResponseWriter, r *http.Request) {
+	// set header
+	w.Header().Set("Content-Type", "application/json")
+
+	// get username from session in login activity
+	getUserUsername := user_activity.Config.Session.GetString(r.Context(), "username")
+
+	// create user obj
+	user, err := user_activity.UserService.GetUserByUsername(getUserUsername)
+
+	// check err
+	if err != nil {
+		fmt.Println("error in getting user based on username : ", err.Error())
+	}
+
+	// check err
+	if err != nil {
+		fmt.Println("error in getting item based on item id : ", err.Error())
+	}
+
+	// create slice
+	var allItems []string
+
+	// get slice from user
+	shopModel, err := user_activity.ShopService.GetData(user.GetListId())
+
+	// check err
+	if err != nil {
+		fmt.Println("error in user add item : ", err.Error())
+	}
+
+	// assighn slice
+	allItems = shopModel.GetAllItems()
+
+	if len(allItems) < 1 {
+		w.Write([]byte("empty chart"))
+	} else {
+		json.NewEncoder(w).Encode(allItems)
+	}
+
 }
