@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/configs"
+	"github.com/ivanpahlevi8/synapsis_challange/pkg/model"
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/service"
 )
 
@@ -219,5 +220,79 @@ func (user_activity *UserActivityHandler) UserViewAllItemInChart(w http.Response
 	} else {
 		json.NewEncoder(w).Encode(allItems)
 	}
+}
 
+// create function to checkout item
+func (user_activity *UserActivityHandler) CheckoutAllItem(w http.ResponseWriter, r *http.Request) {
+	// set header
+	w.Header().Set("Content-Type", "application/json")
+
+	// get username from session in login activity
+	getUserUsername := user_activity.Config.Session.GetString(r.Context(), "username")
+
+	// create user obj
+	user, err := user_activity.UserService.GetUserByUsername(getUserUsername)
+
+	// check err
+	if err != nil {
+		fmt.Println("error in getting user based on username : ", err.Error())
+	}
+
+	// check err
+	if err != nil {
+		fmt.Println("error in getting item based on item id : ", err.Error())
+	}
+
+	// create slice
+	var allItems []string
+
+	// get slice from user
+	shopModel, err := user_activity.ShopService.GetData(user.GetListId())
+
+	// check err
+	if err != nil {
+		fmt.Println("error in user add item : ", err.Error())
+	}
+
+	// assighn slice
+	allItems = shopModel.GetAllItems()
+
+	// create item array object
+	var allItemObj []model.ItemModel
+
+	// iterate all item string
+	for _, val := range allItems {
+		// get obj based on name
+		getItem, err := user_activity.ItemService.GetDataByItemName(val)
+
+		// check err
+		if err != nil {
+			w.Write([]byte("Erro happen when get item data by item name"))
+			return
+		}
+
+		// add item name to array
+		allItemObj = append(allItemObj, getItem)
+	}
+
+	// get total price
+	var totalPrice float64 = 0.0
+
+	// iterate through all obj
+	for _, data := range allItemObj {
+		totalPrice = totalPrice + data.GetItemPrice()
+	}
+
+	// create model for checkout
+	checkoutItems := model.CheckoutModel{
+		TotalPrice: totalPrice,
+		AllItems:   allItems,
+	}
+
+	// create output
+	if len(checkoutItems.GetAllItems()) < 1 {
+		w.Write([]byte("There is no item in basker"))
+	} else {
+		json.NewEncoder(w).Encode(checkoutItems)
+	}
 }

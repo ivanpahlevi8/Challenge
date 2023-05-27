@@ -1,6 +1,8 @@
 package service
 
 import (
+	"errors"
+
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/configs"
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/model"
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/repository"
@@ -49,6 +51,51 @@ func (item_service *ItemService) GetDataById(id string) (model.ItemModel, error)
 
 	// return data if success
 	return getItem, nil
+}
+
+func (item_service *ItemService) GetDataByItemName(itemName string) (model.ItemModel, error) {
+	// get all user
+	getAllItem, err := item_service.ItemRepo.GetAllData()
+
+	// create variable to hold user id
+	var itemId string
+
+	// check error
+	if err != nil {
+		// error happen
+		return model.ItemModel{}, err
+	}
+
+	// iterate all data in user
+	for _, data := range getAllItem {
+		// check data username
+		if data.GetItemName() == itemName {
+			// if data founded
+			itemId = data.GetId()
+			break
+		} else {
+			itemId = ""
+		}
+	}
+
+	// check if data founded
+	if itemId == "" {
+		// if data not found
+		errs := errors.New("no data with certain username")
+		return model.ItemModel{}, errs
+	}
+
+	// get data based on user id
+	getUserData, err := item_service.ItemRepo.GetData(itemId)
+
+	// check err
+	if err != nil {
+		// error happen
+		return model.ItemModel{}, err
+	}
+
+	// return data if success
+	return getUserData, nil
 }
 
 func (item_service *ItemService) UpdateDataById(newData model.ItemModel, id string) (model.ItemModel, error) {
