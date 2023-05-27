@@ -31,7 +31,7 @@ func InitUserRepo() *UserRepo {
 // create method to add data to database user item
 func (item_repo *UserRepo) AddDataModel(modelItem model.UserAccount) (model.UserAccount, error) {
 	// get variable from model
-	getDataId := modelItem.GetId()
+	getDataId := ""
 	getDataUsername := modelItem.GetUsername()
 	getDataPassword := modelItem.GetPassword()
 	getDataFirstName := modelItem.GetFirstName()

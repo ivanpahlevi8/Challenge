@@ -15,6 +15,15 @@ func (shop *ShopModel) SetId(id string) {
 	shop.Id = id
 }
 
+// createg method for get and set allItems
+func (shop *ShopModel) GetAllItems() []string {
+	return shop.AllItems
+}
+
+func (shop *ShopModel) SetAllItems(allItems []string) {
+	shop.AllItems = allItems
+}
+
 // create method for get total item
 func (shop *ShopModel) GetTotalItem() int32 {
 	numItem := int32(len(shop.AllItems))

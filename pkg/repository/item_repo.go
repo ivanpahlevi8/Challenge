@@ -28,7 +28,7 @@ func InitItemRepo() *ItemRepo {
 // create function add data to item repo
 func (item_repo *ItemRepo) AddData(newData model.ItemModel) (model.ItemModel, error) {
 	// get variable from data
-	itemId := newData.GetId()
+	itemId := ""
 	itemName := newData.GetItemName()
 	itemCategory := newData.GetItemCategory()
 	itemPrice := newData.GetItemPrice()
