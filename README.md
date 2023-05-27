@@ -16,3 +16,9 @@ Based on library that imported for this project, the project itself have some fe
 development. Some of features that supported Online Store Application, especially for backend support, can be found at featured list below, <br/>
 
 Features List : <br/>
+1. Customer can view product list by product category
+2. Customer can add product to shopping cart
+3. Customers can see a list of products that have been added to the shopping cart
+4. Customer can delete product list in shopping cart
+5. Customers can checkout and make payment transactions
+6. Login and register customers
