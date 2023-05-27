@@ -25,7 +25,28 @@ Features List : <br/>
 
 ## Program Explanation
 Based on Application Features, there are several application program that can be use to support user experience based on backend development.
-Some of those features is develop based on features list that already mentioned before.
+Some of those features is develop based on features list that already mentioned before. <br/>
+Application use persistance database to save data. Database that used in this Application is Relational Database. This relational database
+was implement to Application using postgres sql that can be found in [here](postgresql.org). Data was saved in three diffrent table in same database. The first table is used to save user data. The second table is used to save item or product data. The last table is used to save basket list of item from user. To connect with database sql, in this project, is using credential as below : <br/>
+1. host, using local host with value "127.0.0.0"
+2. port, using port number "5432"
+3. user, using user "postgres"
+4. password, password depends on database
+5. dbname, "UserSynapsisDatabase"
+<br/> 
+Table in database can be seen below : </br>
+- User table <br/>
+CREATE TABLE usertable (
+	id varchar(255),
+	username varchar(255),
+	password varchar(255),
+	first_name varchar(255),
+	last_name varchar(255),
+	age int,
+	list_id varchar(255)
+); <br/>
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/457afb11-2db8-43d3-9d11-dac81a2968ca)
+
 
 #### User Login Features
 login features in this application, can be used for customer ot user to create their account in database. 
