@@ -103,7 +103,9 @@ user input and password as token in database.
 
 ### User Add Product Features
 This feature in this application can be used for user to add item in store to their account basket. To access this feature, user must
-login first with their account in database. If user already login, user can use this feature. To access this feature, user can use
+login first with their account in database.
+This feature is Put request from API.
+If user already login, user can use this feature. To access this feature, user can use
 url below, <br/>
 ``` sql
 http://localhost:2020/user-get-item?item_id=67df7eca-31cf-4be0-8899-366402650ceb
@@ -121,7 +123,9 @@ if url success, we can see in shop database, that item _kertas A4_ already added
 </br>
 
 #### User Delete Product Features
-This feature is oposite with previous feature, where in this feature user can delete item in their account basket. To access this feature, same as previous feature, user must login first with their account in database. If user already login, user can accessed this feature thorugh this link, <br/>
+This feature is oposite with previous feature, where in this feature user can delete item in their account basket. To access this feature, same as previous feature, user must login first with their account in database.
+This feature is Put request from API. 
+If user already login, user can accessed this feature thorugh this link, <br/>
 ``` sql
 http://localhost:2020/user-delete-item?item_id=67df7eca-31cf-4be0-8899-366402650ceb
 ```
@@ -139,7 +143,7 @@ This feature is used for user to see all item in their basket. Same as previous 
 ``` sql
 http://localhost:2020/user-get-all-item
 ```
-This url does not need url parameter because we want to see all items. For demonstration, we will login with user with username ivanindirsyah07 because this account alread has item in it basket. User, <br/>
+This feature is using Get request from API. This url does not need url parameter because we want to see all items. For demonstration, we will login with user with username ivanindirsyah07 because this account alread has item in it basket. User, <br/>
 ![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/cba5a240-1cac-439d-acb5-45016472a7af)
 <br/>
 If user already logged in, API will give feedback as picture below, 
@@ -154,7 +158,9 @@ If user was not logged in yet, API will give feedback as picture below, <br/>
 
 #### User See List Product Based On Category In Store
 This feature is used for user to see all list of items in store based on items category. This features also need for user to logged in 
-using their account in database. To access this feature, user can go to url, <br/>
+using their account in database.
+This feature is using Get request from API.
+To access this feature, user can go to url, <br/>
 ``` sql
 http://localhost:2020/user-category?item_category=Food and Beverage
 ```
@@ -166,4 +172,19 @@ And if user not logged in yet, API will give feedback, <br/>
 ![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/b493a653-01f9-488c-aec4-970e15b96790)
 <br/>
 
-#### User Can Checkout
+#### User Checkout Items In Basket
+This feature is used for user to checkout their items in basket. Checkout will show user all items in their basket and total price in Rupiah for all items. 
+This feature is using get request from API.
+This feature need for user to logged in first with their account in database. This feature can be accessed throug url as below, <br/>
+``` sql
+http://localhost:2020/user-checkout
+```
+if user already logged in, user will get feedback as picture below, <br/>
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/789ecca7-6c0f-4503-a7db-f97ae7593ea6)
+</br>
+if user not logged in yet, user will get feedback as picture below,
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/cc5f2cf5-069d-4d96-9def-e8f3fdb480c2)
+<br/>
+and, if user does not have any item in basket, user will get feedback as picture below, <br/>
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/59b1851d-3f79-47c8-bb0e-61a89492bd1a)
+<br/>
