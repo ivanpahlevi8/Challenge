@@ -153,3 +153,17 @@ If user was not logged in yet, API will give feedback as picture below, <br/>
 <br/>
 
 #### User See List Product Based On Category In Store
+This feature is used for user to see all list of items in store based on items category. This features also need for user to logged in 
+using their account in database. To access this feature, user can go to url, <br/>
+``` sql
+http://localhost:2020/user-category?item_category=Food and Beverage
+```
+This url is used with url parameter called item_category. This parameter is refer to item data in database. If user already logged in 
+Api will give feedback like this, <br/>
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/b234ef2c-e69c-4e79-930d-53eb6681df57)
+<br/>
+And if user not logged in yet, API will give feedback, <br/>
+![image](https://github.com/ivanpahlevi8/Challenge/assets/83549388/b493a653-01f9-488c-aec4-970e15b96790)
+<br/>
+
+#### User Can Checkout
