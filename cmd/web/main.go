@@ -81,13 +81,19 @@ func main() {
 	itemHandler := handler.InitItemHandler(itemService)
 	itemHandler.Config = &appConfig
 
+	// create user activity handler
+	userActivityHandler := handler.IntiUserActivityHandler(userService)
+	userActivityHandler.ItemService = itemService
+	userActivityHandler.ShopService = shopService
+	userActivityHandler.Config = &appConfig
+
 	// init middlware
-	InitMiddleware(userService)
+	InitMiddleware(userService, &appConfig)
 
 	// create route
 	srv := &http.Server{
 		Addr:    ":2020",
-		Handler: route(userHandler, itemHandler),
+		Handler: route(userHandler, itemHandler, userActivityHandler),
 	}
 
 	// start routing

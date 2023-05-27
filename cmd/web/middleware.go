@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/authentication"
+	"github.com/ivanpahlevi8/synapsis_challange/pkg/configs"
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/model"
 	"github.com/ivanpahlevi8/synapsis_challange/pkg/service"
 )
@@ -16,10 +17,11 @@ var MyMiddleware *MiddlewareObj
 // create middleware object
 type MiddlewareObj struct {
 	MiddService *service.UserService
+	Config      *configs.Config
 }
 
 // init middleware
-func InitMiddleware(service *service.UserService) {
+func InitMiddleware(service *service.UserService, config *configs.Config) {
 	MyMiddleware = &MiddlewareObj{}
 
 	MyMiddleware.MiddService = service
@@ -46,6 +48,10 @@ func LoginMiddleware(next http.Handler) http.HandlerFunc {
 			// get username and password
 			getPasswordInput := loginModel.GetPassword()
 			getUsernameInput := loginModel.GetUsername()
+
+			// put username in session
+			MyMiddleware.Config.Session.Remove(r.Context(), "username")
+			MyMiddleware.Config.Session.Put(r.Context(), "username", getUsernameInput)
 
 			// get certain user by username
 			getUser, err := MyMiddleware.MiddService.GetUserByUsername(getUsernameInput)
